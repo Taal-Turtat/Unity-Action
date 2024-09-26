@@ -5,9 +5,14 @@ using UnityEngine;
 public class chukan : MonoBehaviour
 {
     public static bool isChukan = false;
+    private bool semaphore = false;
+
+    void Start(){
+        semaphore = false;
+    }
 
     void Update(){
-        if(isChukan){
+        if(semaphore){
             if(Input.GetKeyDown(KeyCode.C)){
                 if(motion.left==true){
                     motion.left = false;
@@ -23,12 +28,14 @@ public class chukan : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D cld){
         if(cld.gameObject.tag == "Player"){
+            semaphore = true;
             isChukan = true;   
         }
     }
 
     void OnTriggerExit2D(Collider2D cld){
         if(cld.gameObject.tag == "Player"){
+            semaphore = false;
             isChukan = false;   
         }
     }
